@@ -7,44 +7,33 @@
 <link rel="stylesheet" href="./style.css">
 <title>My-weather-app</title>
 </head>
-
-
-<body>
-<div class = "weather-app">
-<header>
-<form id="searching">
-            <input type="search" placeholder="Search a City .." class= "search-box" id="search-box" >
-            <input type="submit" value = "Go" class="GO-button"/>
-    </form>
+ <body>
+    <header>
+      <form id="search-form">
+        <input type="search" placeholder="Enter a city" class="type-box" />
+        <input type="submit" value="Search" class="search-button" />
+      </form>
     </header>
     <main>
-    <div class = "weather-frame">
-    <div>
-    <h1 class = "city-name" id = "city"><strong>
-     Rome </h1></strong><hr></hr>
+      <div>
+        <h1>Paris</h1>
+        <p>
+          <span id="time"></span>,
+          <span id="weather-description">Scattered clouds</span>
+          <br />
+          Humidity: <strong id="humidity"></strong>, Windspeed:
+          <strong id="wind"></strong>
+        </p>
+      </div>
+      <div>
+        <span class="icon"></span>
+        <span class="temperature">12</span>
+        <span class="unit">°C</span>
+      </div>
+    </main>
+    <div class="weather-forecast" id="forecast"></div>
 
-    <strong id="times"></strong>, <span id="condition"></span>
-    <br></br>
-    Feels like: 
-    <strong id = "feelslike"></strong>°C
-    <br></br>
 
-    Humidity: <strong id = "humidity"></strong> 
-
-    Wind Speed: <strong id="wind"></strong>
-    <hr class = "secondline"></hr>
-    </div>
-
-    <div class ="weather-detail-container">
-    <div class="weather-icon" id = "icon">
-    <img src = "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png">
-    </div>
-    <div class="weather-degree" id="degree"></div>
-    <div class="weather-degree-element">°C</div> 
-    </div></div>
-<div class="forecast" id="forecast"></div>
-
-</main>
     <footer>
        This project was Coded by <a href="https://github.com/LesheEagles" target="-blank">Leshe Eagles</a>, is
         <a href="https://github.com/LesheEagles/Weather-App-Week-7.git" target="-blank">on Github</a>,
