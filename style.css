@@ -1,18 +1,19 @@
 body {
   font-family: "Roboto", system-ui;
- background: rgb(238,174,202);
-background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%
+  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+}
   );
 }
 
 .app-container {
-  width: 600px;
+  max-width: 600px;
   margin: 40px auto;
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
   background-color: rgba(255, 255, 255, 0.3);
 }
+
 
 .search-city-form {
   text-align: center;
