@@ -1,4 +1,4 @@
-// Set up event listener for the form submission
+
 const form = document.querySelector("#search-form");
 form.addEventListener("submit", handleSearch);
 
@@ -113,6 +113,6 @@ function formatDateTime(date) {
   return `${dayOfWeek} ${hours}:${minutes}`;
 }
 
-// Initial weather fetch for a default city
-retrieveWeather("Addis Ababa");
+
+retrieveWeather("Cape Town");
 
