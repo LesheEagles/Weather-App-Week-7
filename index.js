@@ -1,39 +1,9 @@
-function updateWeatherData(response) {
-  let temperatureElement = document.querySelector("#current-temperature");
-  let temperature = response.data.temperature.current;
-  let cityElement = document.querySelector("#city");
-  let descriptionElement = document.querySelector("#description");
-  let humidityElement = document.querySelector("#humidity");
-  let windSpeedElement = document.querySelector("#wind-speed");
-  let timeElement = document.querySelector("#time");
-  let date = new Date(response.data.time * 1000);
-  let iconElement = document.querySelector("#icon");
-
-  temperatureElement.innerHTML = Math.round(temperature);
-  cityElement.innerHTML = response.data.city;
-  descriptionElement.innerHTML = response.data.condition.description;
-  humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
-  windSpeedElement.innerHTML = `${response.data.wind.speed}km/h`;
-  timeElement.innerHTML = formatDate(date);
-  iconElement.innerHTML = `
-    <img
-    src="${response.data.condition.icon_url}"
-    alt=""
-    class="weather-app-emoji"
-    />`;
-
-  document.body.className = response.data.condition.icon;
-  let body = document.querySelector("body");
-  let icon = response.data.condition.icon;
-  if (icon.includes("night")) {
-    body.classList.add("dark");
-  }
-  getForecast(response.data.city);
+function updateCurrentCity(response) {
+  let cityElement = document.querySelector("#current-city");
+  cityElement.innerHTML = `${response.data.city}`;
 }
 
-function formatDate(date) {
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
+function updateCurrentDay(response) {
   let days = [
     "Sunday",
     "Monday",
@@ -43,46 +13,96 @@ function formatDate(date) {
     "Friday",
     "Saturday",
   ];
-  let day = days[date.getDay()];
+  let currentDay = days[now.getDay()];
+  let dayElement = document.querySelector("#current-day");
+  dayElement.innerHTML = currentDay;
+}
 
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
+function updateCurrentTime(response) {
+  let currentMinutes = now.getMinutes();
+  currentMinutes = ("0" + currentMinutes).slice(-2);
+  let currentHours = now.getHours();
+  currentHours = ("0" + currentHours).slice(-2);
+  let currentTimeElement = document.querySelector("#current-time");
+  currentTimeElement.innerHTML = `${currentHours}:${currentMinutes}`;
+}
+
+function updateCurrentWeatherDescription(response) {
+  let currentWeatherDescriptionElement = document.querySelector(
+    "#current-weather-description"
+  );
+  currentWeatherDescriptionElement.innerHTML = `${response.data.condition.description
+    .charAt(0)
+    .toUpperCase()}${response.data.condition.description
+    .substring(1)
+    .toLowerCase()}`;
+}
+
+function updateCurrentHumidity(response) {
+  let currentHumidityElement = document.querySelector("#current-humidity");
+  currentHumidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+}
+
+function updateCurrentWindSpeed(response) {
+  if (units === "metric") {
+    windSpeedUnitSymbol = `km/h`;
+  } else {
+    windSpeedUnitSymbol = `mph`;
   }
-
-  return `${day} ${hours}:${minutes}`;
+  let currentWindSpeedElement = document.querySelector("#current-wind-speed");
+  currentWindSpeedElement.innerHTML = `${Math.round(
+    response.data.wind.speed
+  )} ${windSpeedUnitSymbol}`;
 }
 
-function searchCity(city) {
-  let apiKey = "tb3fa10906d8aeb018ofce8736864bb2";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-  axios.get(apiUrl).then(updateWeatherData);
+function updateCurrentWeatherIcon(response) {
+  let currentWeatherIconElement = document.querySelector(
+    "#current-weather-icon"
+  );
+  currentWeatherIconElement.innerHTML = `<img src= "${response.data.condition.icon_url}" />`;
 }
 
-function handleSearchSubmit(event) {
-  event.preventDefault();
-  let searchInput = document.querySelector("#search-form-input");
+function updateCurrentTemperature(response) {
+  let currentTemperatureElement = document.querySelector(
+    "#current-temperature"
+  );
+  currentTemperatureElement.innerHTML = `${Math.round(
+    response.data.temperature.current
+  )}`;
 
-  searchCity(searchInput.value);
+  let currentTemperatureUnitElement = document.querySelector(
+    "#current-temperature-unit"
+  );
+  if (units === "metric") {
+    currentTemperatureUnitElement.innerHTML = `°C`;
+  } else {
+    currentTemperatureUnitElement.innerHTML = `°F`;
+  }
 }
 
-let searchFormElement = document.querySelector("#search-form");
-searchFormElement.addEventListener("submit", handleSearchSubmit);
+function updateCurrentWeatherElements(response) {
+  updateCurrentCity(response);
+  updateCurrentDay(response);
+  updateCurrentTime(response);
+  updateCurrentWeatherDescription(response);
+  updateCurrentHumidity(response);
+  updateCurrentWindSpeed(response);
+  updateCurrentWeatherIcon(response);
+  updateCurrentTemperature(response);
+}
 
-function formatDay(timestamp) {
+function formatForecastDay(timestamp) {
   let date = new Date(timestamp * 1000);
   let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
   return days[date.getDay()];
 }
 
-function getForecast(city) {
-  let apiKey = "tb3fa10906d8aeb018ofce8736864bb2";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=metric`;
-  axios(apiUrl).then(displayForecast);
-}
-
 function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
+  if (units === "metric") {
+    temperatureUnitSymbol = `°C`;
+  } else {
+    temperatureUnitSymbol = `°F`;
+  }
 
   let forecastHtml = "";
 
@@ -90,24 +110,70 @@ function displayForecast(response) {
     if (index < 5) {
       forecastHtml =
         forecastHtml +
-        `<div class="weather-forecast-day">
-    <div class="weather-forecast-date">${formatDay(day.time)}</div>
-    <div>
-    <img src="${day.condition.icon_url}" class="weather-forecast-icon" />
-    </div>
-    <div class="weather-forecast-temperatures">
-    <div class="weather-forecast-max-temperature">
-              <strong>${Math.round(day.temperature.maximum)}°C</strong>
-              </div>
-              <div class="weather-forecast-min-temperature">${Math.round(
-                day.temperature.minimum
-              )}°C</div>
-              </div>
-              </div>`;
+        `
+      <div class="forecast-weather-day-container">
+        <div class="forecast-weather-day">${formatForecastDay(day.time)}</div>
+        <div ><img src= "${
+          day.condition.icon_url
+        }" class="forecast-weather-icon"/></div>
+        <div class="forecast-weather-temperature">
+          <div class="forecast-weather-temperature-high">
+            <strong>${Math.round(
+              day.temperature.maximum
+            )}${temperatureUnitSymbol}</strong>
+          </div>
+          <div class="forecast-weather-temperature-low">${Math.round(
+            day.temperature.minimum
+          )}${temperatureUnitSymbol}</div>
+        </div>
+      </div>
+      `;
     }
   });
 
+  let forecastElement = document.querySelector("#forecast-weather-container");
   forecastElement.innerHTML = forecastHtml;
 }
 
-searchCity("Cape Town");
+function getCurrentWeatherDetails(currentApiUrl) {
+  axios.get(currentApiUrl).then(updateCurrentWeatherElements);
+}
+
+function getForecastWeatherDetails(forecastApiUrl) {
+  axios.get(forecastApiUrl).then(displayForecast);
+}
+
+function determineApiUrl(city, apiKey, units) {
+  let currentApiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
+  getCurrentWeatherDetails(currentApiUrl);
+  let forecastApiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=${units}`;
+  getForecastWeatherDetails(forecastApiUrl);
+}
+
+function updateApiParameters() {
+  if (checkboxElement.checked) {
+    units = "imperial";
+  } else {
+    units = "metric";
+  }
+  let searchInput = document.querySelector("#search-city-form-input");
+  let city = searchInput.value.toLowerCase().trim() || "Paris";
+  let apiKey = "7f314bd46t448eb65o54002ab9dadc03";
+  determineApiUrl(city, apiKey, units);
+}
+
+function handleSearchCity(event) {
+  event.preventDefault();
+  updateApiParameters();
+}
+
+function handleUnitToggle(event) {
+  updateApiParameters();
+}
+
+let now = new Date();
+let searchCityFormElement = document.querySelector("#search-city-form");
+searchCityFormElement.addEventListener("submit", handleSearchCity);
+let checkboxElement = document.getElementById("units");
+checkboxElement.addEventListener("change", handleUnitToggle);
+updateApiParameters();
