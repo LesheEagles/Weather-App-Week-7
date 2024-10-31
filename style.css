@@ -1,101 +1,259 @@
 body {
-  background: #fff;
-  max-width: 600px;
-  margin: 45px auto;
+  font-family: "Roboto", system-ui;
+ background: rgb(238,174,202);
+background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)
+  );
+}
+
+.weather-app {
+  background: rgba(255, 255, 255, 0.2);
+  max-width: 700px;
+  margin: 80px auto;
   box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
   border-radius: 16px;
   padding: 30px;
-  font-family: "Kumbh Sans", sans-serif;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/971/original/clear-sky-day-img.jpg?1727283888");
 }
+
 header {
-  border-bottom: 1px solid #faf7fe;
-  padding: 0 0 30px 0;
+  border-bottom: 1px solid rgba(97, 170, 199, 0.5);
+  padding: 10px 0 30px 0;
 }
-main {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px 0;
-}
-h1 {
-  margin: 0;
-  font-size: 38px;
-  line-height: 48px;
-}
-p {
-  font-size: 16px;
-  color: rgba(39, 33, 66, 0.4);
-  line-height: 20px;
-}
-p strong {
-  color: #5585b5;
-}
-footer {
-  border-top: 1px solid #faf7fe;
-  padding: 30px 0 0 0;
-  text-align: center;
-  font-size: 13px;
-  color: rgba(0, 0, 0, 0.6);
-}
-a {
-  color: #385170;
-}
-.type-box {
-  background-color: #faf7fe;
+
+.search-form-input {
+  background: rgb(97, 170, 199, 0.7);
   border: none;
-  border-radius: 6px;
-  width: 80%;
+  border-radius: 5px;
+  width: 75%;
   padding: 15px 20px;
   font-size: 16px;
 }
-.search-button {
-  background: #385170;
-  padding: 15px 30px;
+
+.search-form-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.search-form-button {
+  background: rgb(57, 124, 150);
+  color: black;
   border: none;
-  border-radius: 6px;
-  color: #fff;
+  border-radius: 5px;
+  width: 20%;
+  padding: 15px 20px;
   font-size: 16px;
-  margin-left: 5px;
+  margin-left: 10px;
   transition: all 200ms ease-in-out;
 }
-.search-button:hover {
-  background: #fff;
-  color: #385170;
+
+.search-form-button:hover {
+  color: whitesmoke;
   cursor: pointer;
+  background-color: rgb(97, 170, 199);
+  opacity: 80%;
 }
-.temperature {
-  font-size: 88px;
+
+main {
+  padding: 10px 0 30px 0;
+}
+
+.weather-app-data {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.city-data {
+  background: rgba(255, 255, 255, 0.4);
+  padding: 20px 100px 20px 50px;
+  width: 40%;
+  box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+  border-radius: 16px;
+}
+
+.weather-app-city {
+  margin: 26px 0 0 -20px;
+  font-size: 42px;
+  line-height: 48px;
+}
+
+.time-plus-description {
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 18px;
+  margin-left: -20px;
+}
+
+.weather-app-temperature-container {
+  display: flex;
+  margin-left: 65px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+  border-radius: 16px;
+  width: 40%;
+}
+
+.weather-app-emoji {
+  width: 72px;
+  height: 72px;
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.weather-app-temperature-value {
+  font-size: 72px;
   font-weight: bold;
+  line-height: 72px;
+  margin-left: -5px;
+  margin-top: 36px;
 }
-.icon {
-  font-size: 80px;
-  margin-top: 22px;
+
+.weather-app-unit {
+  font-size: 28px;
+  margin-top: 42px;
 }
-.unit {
-  font-size: 80px;
-  padding-top: 4px;
+
+.weather-app-info {
+  font-size: 16px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.6);
+  margin-top: 130px;
+  text-align: center;
+  margin-left: -190px;
 }
+
+.weather-app-info strong {
+  color: rgba(13, 88, 118, 0.9);
+  font-weight: 500;
+}
+
+.weather-app-info strong .dark,
+a .dark {
+  color: rgb(57, 124, 150);
+}
+
 .weather-forecast {
   display: flex;
-  justify-content: space-around;
-  margin-top: 30px;
+  justify-content: space-evenly;
+  margin-top: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 50px rgba(65, 50, 100, 0.08);
+  border-radius: 16px;
 }
+
+.weather-forecast-day {
+  padding: 16px;
+  border-right: 2px solid rgba(97, 170, 199, 0.5);
+}
+
 .weather-forecast-date {
   text-align: center;
-  color: rgba(39, 33, 66, 0.4);
-  font-size: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 16px;
+  line-height: 20px;
 }
+
 .weather-forecast-icon {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: block;
   margin: 0 auto;
 }
 .weather-forecast-temperatures {
-  text-align: center;
-  color: #5585b5;
+  font-size: 16px;
+  color: rgba(13, 88, 118, 0.9);
   display: flex;
   justify-content: center;
+  margin-bottom: 16px;
 }
-.weather-forecast-temperature {
-  padding: 5px;
+
+.weather-forecast-max-temperature,
+.weather-forecast-min-temperature {
+  padding: 0 8px;
+}
+
+footer {
+  margin-top: 30px;
+  border-top: 1px solid rgba(97, 170, 199, 0.5);
+  padding: 15px 0 0 0;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
+}
+
+.dark footer {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+a {
+  color: rgba(31, 50, 90, 0.9);
+}
+
+.dark {
+  background: linear-gradient(
+    109.6deg,
+    rgb(3, 40, 61) 11.2%,
+    rgb(6, 86, 95) 91.1%
+  );
+}
+
+.broken-clouds-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/022/original/broken-clouds-day.jpg?1727290771");
+}
+
+.broken-clouds-night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/966/original/broken-clouds-night.jpg?1727281809");
+}
+
+.rain-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/026/original/rain-day-clouds.jpg?1727291130");
+}
+
+.rain-night .weather-app,
+.shower-rain-night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/968/original/rainy-clouds-night.jpg?1727283245");
+}
+
+.clear-sky-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/971/original/clear-sky-day-img.jpg?1727283888");
+}
+
+.clear-sky-night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/970/original/clear-sky-night.jpg?1727283547");
+}
+
+.shower-rain-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/029/original/shower-rain-day.jpg?1727291547");
+}
+
+.few-clouds-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/665/original/weather-img.jpg?1727030581");
+}
+
+.few-clouds.night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/969/original/few-clouds-night.jpg?1727283333");
+}
+
+.scattered-clouds-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/067/original/scattered-clouds-day.jpg?1727301748");
+}
+
+.scattered-clouds-night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/144/967/original/scattered-clouds-night.jpg?1727283102");
+}
+
+.thunderstorm-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/030/original/thunderstorm-day.jpg?1727291941");
+}
+
+.thunderstorm-night .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/031/original/thunderstorm-night.jpg?1727291951");
+}
+
+.mist-night .weather-app,
+.mist-day .weather-app {
+  background-image: url("https://s3.amazonaws.com/shecodesio-production/uploads/files/000/145/066/original/mist.jpg?1727301228");
 }
