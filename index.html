@@ -1,68 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="src/style.css" />
-    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="icon" type="image/png" href="./images/favicon.png" />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>My Weather App</title>
   </head>
+
   <body>
-    <div class="app-container">
+    <div class="weather-app">
       <header>
-        <form class="search-city-form" id="search-city-form">
+        <a href="/" aria-label="Reload Homepage">
+          <img
+            src="./images/logo.png"
+            width="200"
+            height="50"
+            alt="Weather App Logo"
+            class="logo-icon"
+          />
+        </a>
+        <form id="search-form" class="search-bar">
           <input
             type="search"
-            placeholder="Enter a city"
+            id="search-input"
+            class="search-input"
+            placeholder="Enter a City..."
+            autofocus
             required
-            class="search-city-form-input"
-            id="search-city-form-input"
-            autocomplete="off"
           />
-          <input type="submit" value="Search" class="search-city-form-button" />
+          <input
+            type="submit"
+            value="Search"
+            aria-label="Search for City"
+            class="search-button"
+          />
         </form>
       </header>
+
       <main>
         <div class="current-weather-container">
-          <div class="current-weather-details">
+          <div class="current-weather">
             <h1 id="current-city">City Name</h1>
-            <p>
-              <span id="current-day">Day</span> at
-              <span id="current-time">time</span>
-              <br />
-              <span id="current-weather-description">weather description</span>
-              <br />
-              Humidity: <strong id="current-humidity">00%</strong> Wind:
-              <strong><span id="current-wind-speed">00</span></strong>
-            </p>
-          </div>
-          <div class="current-temperature-container">
-            <div class="current-weather-icon" id="current-weather-icon">☀</div>
-            <div class="current-temperature" id="current-temperature">00</div>
-            <div class="current-temperature-unit" id="current-temperature-unit">
-              °C
+            <div class="current-details">
+              <p id="current-date">Date & Time</p>
+              <span id="current-description">Weather Description</span><br />
+              <span id="current-humidity" class="humidity-level">Humidity: 00%</span>
+              &bull;
+              <span id="current-wind" class="wind-speed">Wind: 00 km/h</span>
             </div>
           </div>
+
+          <div class="current-temperature">
+            <span id="current-icon">☀</span>
+            <span id="current-temp" class="current-temperature-value">00</span>
+            <span class="current-temperature-unit">°C</span>
+          </div>
         </div>
-        <div
-          class="forecast-weather-container"
-          id="forecast-weather-container"
-        ></div>
-        <div class="units-toggle-container">
-          <label for="units" class="units">
-            <span class="units-text">°C</span>
-            <input type="checkbox" id="units" />
-            <span class="units-button"></span>
-            <span class="units-text">°F</span>
-          </label>
+
+        <div id="weather-forecast" class="weather-forecast-information">
         </div>
       </main>
+         
+        
       <footer>
         This project was Coded by <a href="https://github.com/LesheEagles" target="_blank">Leshe Eagles</a>, is
         <a href="https://github.com/LesheEagles/Weather-App-Week-7.git" target="_blank">on Github</a>,
