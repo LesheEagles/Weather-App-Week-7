@@ -1,76 +1,36 @@
-let searchForm = document.querySelector("#search-form");
-let searchInput = document.querySelector("#search-input");
-let searchButton = document.querySelector(".search-button");
+function bringTemp (response){
+let temperatureElement = document.querySelector("#degree");
+let degree = response.data.temperature.current;
+let cityElement = document.querySelector("#city");
+let conditionElement = document.querySelector("#condition");
+let humidityElement = document.querySelector("#humidity");
 
-searchForm.addEventListener("submit", searchSubmit);
-searchInput.addEventListener("input", toggleButton);
+let feelslike = document.querySelector("#feelslike");
+let windElement = document.querySelector ("#wind");
+let timesElement = document.querySelector ("#times");
+let date = new Date(response.data.time * 1000);
+let iconElement = document.querySelector("#icon");
 
-// Toggle the button based on input value
-function toggleButton() {
-  searchButton.disabled = searchInput.value == "";
+
+
+
+
+
+cityElement.innerHTML = response.data.city;
+temperatureElement.innerHTML = Math.round(degree);
+conditionElement.innerHTML = response.data.condition.description;
+humidityElement.innerHTML = `${response.data.temperature.humidity}%,`;
+windElement.innerHTML  = `${response.data.wind.speed} Km/h`;
+timesElement.innerHTML = formatDate(date);
+iconElement.innerHTML =`<img src = "${response.data.condition.icon_url}"  class="weather-icon" />`;
+feelslike.innerHTML = Math.round(response.data.temperature.feels_like);
+
+getForecast(response.data.city);
 }
 
-// Call the API and render the data
-async function searchSubmit(event) {
-  event.preventDefault();
-
-  let cityElement = document.querySelector("#weather-app-city");
-  let temp = document.querySelector(".weather-temperature");
-  let icon = document.querySelector(".weather-icon");
-  let condition = document.querySelector("#description");
-  let humidityElement = document.querySelector("#humidity");
-  let speedElement = document.querySelector("#speed");
-  let timeElement = document.querySelector("#time");
-
-  let currentWeatherApi = `https://api.shecodes.io/weather/v1/current?query=${searchInput.value}&key=6bdb310086a38f79b2oc40bdd04tdc66&units=metric`;
-  currentResult = await fetch(currentWeatherApi);
-  currentResult = await currentResult.json();
-
-  let date = new Date(currentResult.time * 1000);
-  timeElement.innerHTML = formatDay(date);
-
-  cityElement.innerHTML = currentResult.city;
-  temp.innerHTML = Math.round(currentResult.temperature.current);
-  icon.src = currentResult.condition.icon_url;
-  icon.classList.remove("aaa");
-  condition.innerHTML = currentResult.condition.description;
-  humidityElement.innerHTML = `${currentResult.temperature.humidity}%`;
-  speedElement.innerHTML = `${currentResult.wind.speed}km/h`;
-
-  let forecastWeatherApi = `https://api.shecodes.io/weather/v1/forecast?query=${searchInput.value}&key=6bdb310086a38f79b2oc40bdd04tdc66&units=metric`;
-  forecastResult = await fetch(forecastWeatherApi);
-  forecastResult = await forecastResult.json();
-
-  let forecastHTML = "";
-  let forecastDays = forecastResult.daily.slice(1, 5);
-  console.log(forecastDays);
-
-  forecastDays.forEach(function (day) {
-    forecastHTML += `
-      <div class="forecast-day">
-        <div class="forecast-date">${formatDays(day.time)}</div>
-        <div>
-          <img src="${day.condition.icon_url}" class="forecast-icon" />
-        </div>
-        <div class="forecast-temperatures">
-          <div class="forecast-temperature">
-            <strong>${Math.round(day.temperature.maximum)}º</strong>
-          </div>
-          <div class="forecast-temperature">${Math.round(
-            day.temperature.minimum
-          )}º</div>
-        </div>
-      </div>`;
-  });
-
-  let forecastElement = document.querySelector("#forecast");
-  forecastElement.innerHTML = forecastHTML;
-}
-
-function formatDay(date) {
-  let hour = date.getHours();
-  let minute = date.getMinutes();
-
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
   let days = [
     "Sunday",
     "Monday",
@@ -80,24 +40,78 @@ function formatDay(date) {
     "Friday",
     "Saturday",
   ];
-  let day = days[date.getDay()];
 
-  if (minute < 10) minute = `0${minute}`;
-  if (hour < 10) hour = `0${hour}`;
+    let day = days[date.getDay()];
 
-  return `${day} ${hour}:${minute}`;
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+
+  return `${day} ${hours}:${minutes}`;
 }
 
-function formatDays(timestamp) {
-  let date = new Date(timestamp * 1000);
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[date.getDay()];
+
+
+function searchPlace (city){
+let apiKey = "94a4oafdtf0d380ca243ac81b53c4ce3";
+let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}`
+axios.get(apiUrl).then(bringTemp);
 }
 
-// Trigger search for "Tehran" on page load and enable/disable button accordingly
-document.addEventListener("DOMContentLoaded", async () => {
-  searchInput.value = "Tehran"; // Set default city
-  await searchSubmit(new Event("submit")); // Trigger the search for the default city
-  searchInput.value = "";
-  toggleButton(); // Set button state based on initial value
+function convertDay (timestamp) {
+  let date = new Date (timestamp * 1000 ) ;
+  let days = ["Sun" , "Mon" , "Tue" , "wed" , "Thu" , "Fri" , "Sat"];
+  return days [date.getDay()];
+}
+
+
+
+function showingName (event){
+  event.preventDefault();
+  let searchBox = document.querySelector("#search-box");
+  searchPlace(searchBox.value);
+}
+
+function getForecast(city){
+let apiKey ="94a4oafdtf0d380ca243ac81b53c4ce3";
+let apiUrl =` https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}`
+axios(apiUrl).then(showingForecast);
+}
+
+
+
+function showingForecast (response){
+let forecastHtml= "";
+
+response.data.daily.forEach(function (day,index){
+  if (index < 5 ){
+forecastHtml = 
+forecastHtml + 
+ ` 
+<div class="forecast-day">
+<div class="forecast-date">${convertDay(day.time)}</div>
+<div class="forecast-emoji">
+<img src = "${day.condition.icon_url}"/>
+</div>
+<div class="forecast-temps">
+<div class="forecast-temp12">${Math.round(day.temperature.maximum)} ° </div>
+<div class="forecast-temp12">${Math.round(day.temperature.minimum)} °</div>
+</div>
+</div>
+`;
+}
 });
+
+
+let forecastElement = document.querySelector("#forecast");
+forecastElement.innerHTML = forecastHtml;
+}
+
+
+let searchFormElement = document.querySelector("#searching");
+searchFormElement.addEventListener("submit", showingName);
+
+
+searchPlace("Tehran");
+
+showingForecast("Tehran");
