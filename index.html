@@ -1,53 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="src/styles.css" />
-<title>My-weather-app</title>
-</head>
-<body>
-    <div class="weather-app">
-      <header class="header">
-        <form class="search-form" id="search-form">
+    <link rel="stylesheet" href="src/style.css" />
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <form class="search-city-form" id="search-city-form">
           <input
             type="search"
-            placeholder="Enter a city..."
-            class="search-form-input"
-            id="search-form-input"
+            placeholder="Enter a city"
             required
+            class="search-city-form-input"
+            id="search-city-form-input"
+            autocomplete="off"
+            ;
           />
-          <input type="submit" value="Search" class="search-form-button" />
+          <input type="submit" value="Search" class="search-city-form-button" />
         </form>
       </header>
       <main>
-        <div class="weather-app-data">
-          <div class="city-data">
-            <h1 class="weather-app-city" id="city"></h1>
-            <div class="time-plus-description">
-              <span id="time"></span>, <span id="description"></span>
-            </div>
-          </div>
-          <div class="weather-app-temperature-container">
-            <div id="icon"></div>
-            <div
-              class="weather-app-temperature-value"
-              id="current-temperature"
-            ></div>
-            <div class="weather-app-unit">°C</div>
-            <p class="weather-app-info">
-              Humidity: <strong id="humidity"></strong>, Wind:
-              <strong id="wind-speed"></strong>
+        <div class="current-weather-container">
+          <div class="current-weather-details">
+            <h1 id="current-city">City Name</h1>
+            <p>
+              <span id="current-day">Day</span> at
+              <span id="current-time">time</span>
+              <br />
+              <span id="current-weather-description">weather description</span>
+              <br />
+              Humidity: <strong id="current-humidity">00%</strong> Wind:
+              <strong><span id="current-wind-speed">00</span></strong>
             </p>
           </div>
+          <div class="current-temperature-container">
+            <div class="current-weather-icon" id="current-weather-icon">☀</div>
+            <div class="current-temperature" id="current-temperature">00</div>
+            <div class="current-temperature-unit" id="current-temperature-unit">
+              °C
+            </div>
+          </div>
+        </div>
+        <div
+          class="forecast-weather-container"
+          id="forecast-weather-container"
+        ></div>
+        <div class="units-toggle-container">
+          <label for="units" class="units">
+            <span class="units-text">°C</span>
+            <input type="checkbox" id="units" />
+            <span class="units-button"></span>
+            <span class="units-text">°F</span>
+          </label>
         </div>
       </main>
-      <div class="weather-forecast" id="forecast"></div>
 
     <footer>
        This project was Coded by <a href="https://github.com/LesheEagles" target="-blank">Leshe Eagles</a>, is
