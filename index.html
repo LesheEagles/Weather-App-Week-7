@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="src/style.css" />
+    <title>Weather app</title>
+</head>
+<body>
+    <div class="weather-app">
+    <header>
+        <form class="search-form" id="search-form">
+        <input 
+        type="search" 
+        placeholder="Enter a city..."  
+        class="search-input" 
+        id="search-input"/>
+        <input type="submit" value="Search" class="search-button" />
+        </form>
+    </header>
+    <main>
+        <div class="weather-app-data">
+        <div>
+    <h1 class="weather-app-city" id="weather-app-city">
+        Tehran
+    </h1>
+    <p class="weather-app-details">
+        <span id="time">Saturday 15:46</span>, <span id="description">broken clouds</span>
+    </br>
+        Humidity: <strong id="humidity">25%</strong>, Wind: <strong id="speed">2.06km/h</strong>
+    </p>
+    </div>
+    <div class="weather-container">
+    <img src=""  class="weather-icon aaa"> 
+    <div class="weather-temperature" id="temperature">17</div>
+    <div class="weather-unit">°C</div>
+    </div>
+    </div>
+        <div class="weather-forecast" id="forecast"></div>
+    </main>
+    <footer>
+       This project was Coded by <a href="https://github.com/Mohanna77kian" target="-blank">Mohanna Kian</a>, is
+        <a href="https://github.com/Mohanna77kian/mohanna-app" target="-blank">on Github</a>,
+        and website hosted <a href="https://mohanna-app.netlify.app/" target="-blank">on Netlify</a>
+    </footer>
+    </div>
+    <script src="src/index.js"></script>
+</body>
+</html>
