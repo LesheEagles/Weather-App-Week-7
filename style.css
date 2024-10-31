@@ -1,12 +1,10 @@
 body {
   font-family: "Roboto", system-ui;
-  background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
-}
-  );
+  background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
 }
 
 .app-container {
-  max-width: 600px;
+  width: 600px;
   margin: 40px auto;
   padding: 30px;
   border-radius: 12px;
@@ -14,10 +12,8 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
-
 .search-city-form {
   text-align: center;
-  max-width: 0.8;
 }
 
 .search-city-form-input {
@@ -100,32 +96,6 @@ p {
   display: flex;
   justify-content: space-between;
   padding: 30px 5px;
-}
-
-.forecast-weather-day-container {
-  width: 85px;
-}
-
-.forecast-weather-day {
-  font-size: 20px;
-  text-align: center;
-  color: rgba(50, 75, 75, 0.75);
-}
-
-.forecast-weather-icon {
-  width: 90px;
-}
-
-.forecast-weather-temperature {
-  display: flex;
-  justify-content: space-between;
-  font-size: 17px;
-  color: #964260;
-  font-weight: 500;
-}
-
-.forecast-weather-temperature-low {
-  opacity: 85%;
 }
 
 .units-toggle-container {
